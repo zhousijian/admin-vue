@@ -1,0 +1,125 @@
+.el-dialog {
+  width: 900px;
+}
+
+.content{
+  box-sizing: border-box;
+  margin-top: 0 !important;
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
+
+.el-menu--collapse .el-menu .el-submenu, .el-menu--popup {
+  max-width: 220px;
+}
+
+.el-icon-location{
+  width: 21px;
+  height: 21px;
+}
+
+.el-submenu .el-icon-home {
+  content: '';
+  width: 12px !important;
+  height: 16px;
+  background: url("../images/mydwxz.png") no-repeat;
+  background-size: 100% 100%;
+  background-size: cover;
+  margin-right: 10px;
+}
+.el-submenu.is-opened .el-icon-home{
+  content: '';
+  width: 12px !important;
+  height: 16px;
+  background: url("../images/mydxz.png") no-repeat;
+  background-size: 100% 100%;
+  background-size: cover;
+  margin-right: 10px;
+}
+.el-icon-menu:before{
+  content: '';
+}
+.el-icon-document:before{
+  content: '';
+}
+.el-icon-setting:before{
+  content: '';
+}
+.el-icon-location:before{
+  content: '';
+}
+.el-menu-item.is-active .el-icon-menu{
+  content: '' !important;
+  width: 19px !important;
+  height: 18px;
+  background: url("../images/mysc.png") no-repeat;
+  background-size: 100% 100%;
+  background-size: cover;
+  margin-right: 10px;
+}
+.el-menu-item  .el-icon-menu{
+  content: '' !important;
+  width: 19px !important;
+  height: 18px;
+  background: url("../images/mywsc.png") no-repeat;
+  background-size: 100% 100%;
+  background-size: cover;
+  margin-right: 10px;
+}
+
+.el-menu-item.is-active .el-icon-document{
+  content: '' !important;
+  width: 20px !important;
+  height: 15px;
+  background: url("../images/mycarz.png") no-repeat;
+  background-size: 100% 100%;
+  background-size: cover;
+  margin-right: 10px;
+}
+.el-menu-item  .el-icon-document{
+  content: '' !important;
+  width: 20px !important;
+  height: 15px;
+  background: url("../images/mycarw.png") no-repeat;
+  background-size: 100% 100%;
+  background-size: cover;
+  margin-right: 10px;
+}
+.el-menu-item.is-active .el-icon-setting{
+  content: '' !important;
+  width: 12px !important;
+  height: 16px;
+  background: url("../images/orderz.png") no-repeat;
+  background-size: 100% 100%;
+  background-size: cover;
+  margin-right: 10px;
+}
+.el-menu-item .el-icon-setting{
+  content: '' !important;
+  width: 12px !important;
+  height: 16px;
+  background: url("../images/orderw.png") no-repeat;
+  background-size: 100% 100%;
+  background-size: cover;
+  margin-right: 10px;
+}
+.el-submenu.is-opened .el-icon-location{
+  content: '' !important;
+  width: 16px !important;
+  height: 16px;
+  background: url("../images/zhz.png") no-repeat;
+  background-size: 100% 100%;
+  background-size: cover;
+  margin-right: 10px;
+}
+.el-submenu .el-icon-location{
+  content: '' !important;
+  width: 16px !important;
+  height: 16px;
+  background: url("../images/zhw.png") no-repeat;
+  background-size: 100% 100%;
+  background-size: cover;
+  margin-right: 10px;
+}
+

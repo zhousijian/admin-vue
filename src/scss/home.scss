@@ -1,0 +1,238 @@
+.head {
+  display: flex;
+  justify-content: space-between;
+  //width: 80%;
+  padding: 40px 37px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 4px;
+
+  .userinfo {
+    display: flex;
+
+    .img {
+      width: 80px;
+      height: 80px;
+      //background-color: #cccccc;
+    }
+
+    .user {
+      margin-left: 13px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .nickName {
+        font-size: 1.1428rem;
+        color: #333333;
+        display: flex;
+        align-items: center;
+        .name_txt{
+          max-width: 180px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .gender{
+          width: 16px;
+          height: 14px;
+          margin-left: 7px;
+        }
+      }
+
+      .addr {
+        display: flex;
+        align-items: flex-end;
+        .img{
+        width: 24px;
+          height: 30px;
+          margin-right: 10px;
+      }
+        font-size: 1rem;
+        color: #333333;
+      }
+    }
+  }
+
+  .info {
+    margin-left: 70px;
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+
+    .cont {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-content: center;
+      text-align: center;
+
+      .title {
+        font-size: 1rem;
+        color: #333333;
+
+        span {
+          color: #666666;
+        }
+      }
+
+      .number {
+        font-size: 1.714rem;
+        color: #111111;
+      }
+    }
+  }
+}
+
+.data_map {
+  //width: 80%;
+  box-sizing: border-box;
+  padding: 43px 37px;
+  background-color: #ffffff;
+  margin-top: 22px;
+  border-radius: 4px;
+
+  .data_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .tip {
+      font-size: 1.1428rem;
+      color: #333333;
+    }
+
+    .btns {
+      display: flex;
+
+
+      .btn {
+        text-align: center;
+        width: 100px;
+        padding: 9px 0;
+        border-radius: 4px;
+        border: 1px solid #CCCCCC;
+        margin-left: 9px;
+      }
+
+      .btn_active {
+        border: 1px solid #147FF9;
+        color: #147FF9;
+      }
+    }
+  }
+}
+.phone_x{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .phone_left{
+    flex: 1;
+  }
+  .phone_right{
+    flex: 1;
+  }
+}
+
+.fans_title{
+  font-size: 1.1428rem;
+  color: #333333;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.works {
+  background-color: #ffffff;
+  margin-top: 23px;
+  padding: 40px 37px 20px 37px;
+  box-sizing: border-box;
+  .title_x{
+    font-size: 1.1428rem;
+    color: #333333;
+    margin-bottom: 15px;
+  }
+  .swiper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .cont {
+      width: 196px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .img {
+        height: 320px;
+        width: 100%;
+        background-color: #ccc;
+      }
+
+      .info {
+        .title {
+          height: 38px;
+          font-size: 1rem;
+          color: #333333;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2; //设置行数
+          -webkit-box-orient: vertical;
+          margin-top: 10px;
+        }
+
+        .time {
+          font-size: 0.857rem;
+          color: #999999;
+          margin-top: 10px;
+        }
+
+        .operation {
+          display: flex;
+          margin-top: 10px;
+          justify-content: space-between;
+          .contx {
+            display: flex;
+            align-items: center;
+            .logo {
+              width: 12px;
+              height: 12px;
+              background-color: #fff;
+              margin-right: 5px;
+            }
+
+            .number {
+              font-size: 1rem;
+              color: #999999;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+}
+
+.fansinfo{
+  background-color: #ffffff;
+  border-radius: 4px;
+  margin-top: 20px;
+  box-sizing: border-box;
+  padding: 45px 37px;
+}
+.fans_top{
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.page_x{
+  width: 20px;
+  height: 14px;
+}
+
+.page_up{
+  transform:rotate(-90deg);
+}
+.page_next{
+  transform:rotate(90deg);
+}

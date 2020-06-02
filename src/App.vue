@@ -1,32 +1,51 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+<!--    <headerx></headerx>-->
+<!--    <div class="html_con">-->
+<!--&lt;!&ndash;      <div class="">&ndash;&gt;-->
+<!--&lt;!&ndash;        <lefta></lefta>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="">&ndash;&gt;-->
+<!--        <router-view />-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--    </div>-->
+      <router-view />
   </div>
 </template>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+  // import lefta from './components/leftclass/index'
+  // import headerx from './components/Header/index'
+  export default {
+    // components:{
+    //   lefta,
+    //   headerx
+    // }
   }
-}
+
+</script>
+<style>
+  img{
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  html{
+    font-size: 14px;
+    background-color: #EFEFEF;
+  }
+  .html_con{
+    display: flex;
+    max-width: 1200px;
+    margin: auto;
+    justify-content: space-between;
+  }
+  /*.body{*/
+  /*  width: 80%;*/
+  /*}*/
+  .content{
+    width: 100% !important;
+  }
+  .body{
+    width: 100% !important;
+  }
 </style>

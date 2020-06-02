@@ -1,0 +1,254 @@
+.content{
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 43px 38px;
+  .order_tip{
+    display: flex;
+    justify-content: space-between;
+    align-items: self-start;
+    .cont{
+      display: flex;
+      .title{
+        font-size: 1.1428rem;
+        color: #333333;
+      }
+      .btn{
+        box-sizing: border-box;
+        border:1px solid #CCCCCC;
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        font-size: 1rem;
+        color: #999999;
+        border-radius: 4px;
+        margin-left: 10px;
+      }
+      .active{
+        border:1px solid #147FF9;
+        color: #147FF9;
+      }
+    }
+  }
+  .order_title{
+    font-size: 1rem;
+    color: #666666;
+    display: flex;
+    background-color: #EFEFEF;
+    padding: 24px 0;
+    margin-top: 26px;
+    margin-bottom: 29px;
+    .tit_a{
+      width:43%;
+      padding-left: 55px;
+      box-sizing: border-box;
+    }
+    .tit_b{
+      width: 20%;
+      text-align: center;
+    }
+    .tit_c{
+      width: 17%;
+      text-align: center;
+    }
+    .tit_d{
+      width: 20%;
+      text-align: center;
+    }
+  }
+  .order_cont{
+    //display: flex;
+    //flex-direction: column;
+    //height: 300px;
+    //overflow: hidden;
+    margin-bottom: 37px;
+    .cont_tit{
+      display: flex;
+      align-items: center;
+      padding: 13px 0;
+
+      background-color: #EFEFEF;
+      .tiem_number{
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
+        color: #666666;
+        width: 63%;
+        .tiem{
+          padding-left: 55px;
+        }
+        .number{
+          margin-left: 52px;
+        }
+      }
+      .money{
+        width: 17%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .time_tip{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width:20% ;
+        color: #FF4800;
+      }
+    }
+    .cont_layout{
+
+
+      .conthe{
+        height: 300px;
+      }
+      .img_top{
+        transform:rotate(180deg);
+      }
+      .cont{
+        overflow: hidden;
+        border-left: 1px solid #EFEFEF;
+        border-bottom: 1px solid #EFEFEF;
+        border-right: 1px solid #EFEFEF;
+        display: flex;
+        .goods_ls{
+          //display: flex;
+          width: 63%;
+
+          .goods{
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+            padding: 20px 0;
+            padding-left: 55px;
+            border-bottom: 1px solid #EFEFEF;
+            .goods_con{
+              display: flex;
+              align-items: center;
+              width: 67%;
+              .goods_img{
+                width: 36px;
+                height: 60px;
+                border-radius: 4px;
+                overflow: hidden;
+                margin-right: 24px;
+              }
+              .goods_info{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 228px;
+
+                .goods_name{
+                  font-size: 1rem;
+                  color: #333333;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  display: -webkit-box;
+                  -webkit-line-clamp: 2;//设置行数
+                  -webkit-box-orient: vertical;
+                }
+                .goods_author{
+                  font-size: 1rem;
+                  color: #999999;
+                }
+              }
+            }
+            .type_txt{
+              width: 33%;
+
+              font-size: 1rem;
+              color: #333333;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              .txt:first-child{
+                margin-right: 10px;
+              }
+            }
+          }
+          .goods:last-child{
+            border: none;
+          }
+        }
+        .money{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 17%;
+          box-sizing: border-box;
+          border-left: 1px solid #EFEFEF;
+          border-right: 1px solid #EFEFEF;
+          .number{
+            font-size: 1.571rem;
+            color: #FF4800;
+            span{
+              font-size: 1rem;
+            }
+          }
+        }
+        .state{
+          width: 20%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          div{
+            cursor:pointer;
+            padding: 7px 9px;
+            border-radius: 4px;
+            margin-bottom: 6px;
+          }
+          .state_buy{
+            background-color: #FF4800;
+            color: #ffffff;
+            font-size: 1.1428rem;
+          }
+          .state_confirm{
+            background-color: #147FF9;
+            color: #ffffff;
+            font-size: 1.1428rem;
+          }
+          .state_failure{
+            background-color: #999999;
+            color: #ffffff;
+            font-size: 1.1428rem;
+          }
+          .state_state{
+            font-size: 1rem;
+            color: #666666;
+          }
+          .state_info{
+            font-size: 1rem;
+            color: #666666;
+          }
+          .state_succeed{
+            font-size: 1rem;
+            color: #666666;
+          }
+        }
+      }
+      .cont_more{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #F5F9FE;
+        padding: 8px 0;
+        .img{
+            width: 9px;
+            height: 6px;
+        }
+        .txt{
+          cursor: pointer;
+          font-size: 1rem;
+          color: #147FF9;
+        }
+      }
+    }
+
+  }
+}
+img{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
