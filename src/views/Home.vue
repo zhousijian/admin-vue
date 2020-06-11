@@ -33,25 +33,32 @@
       <div class="data_map">
         <div class="data_title">
           <div class="tip">数据趋势图</div>
-          <div class="btns">
+          <div v-if="BrokenLine[0].item1" class="btns">
             <div @click="navindex(index)" class="btn" :class="indexstag==index?'btn_active':''" v-for="(item,index) in titleList" :key="index">{{item.name}}</div>
           </div>
         </div>
+        <span v-show=" BrokenLine[0].item1">
         <div v-show="indexs==0" style="width: 100%;height: 300px" id="echarts1" class="user_echarts"></div>
         <div v-show="indexs==1" style="width: 100%;height: 300px" id="echarts2" class="user_echarts"></div>
 <!--        <div v-show="indexs==2" style="width: 100%;height: 300px" id="echarts3" class="user_echarts"></div>-->
 <!--        <div v-show="indexs==3" style="width: 100%;height: 300px" id="echarts4" class="user_echarts"></div>-->
 <!--        <div v-show="indexs==4" style="width: 100%;height: 300px" id="echarts5" class="user_echarts"></div>-->
 
+          </span>
+        <span v-show=" !BrokenLine[0].item1">
+          <img class="empty_bg" src="../images/empty.png">
+        </span>
+
       </div>
     </div>
     <div class="works">
       <div class="title_x">作品列表信息</div>
-      <div class="swiper" v-if="videoList">
+      <div  class="swiper" v-if="videoList">
         <div class=" page_x page_up " @click="pageUp">
-          <img src="../images/page.png">
+          <img src="../images/pagenav.png">
         </div>
-        <div class="cont" v-for="(item,index) in videoList" :key="index">
+        <div class="video_bgz">
+          <div v-if="videoList" @click="videoGO(item.share_url)" class="cont" v-for="(item,index) in videoList" :key="index">
           <div class="img">
             <img :src="item.cover">
           </div>
@@ -81,9 +88,14 @@
             </div>
           </div>
         </div>
-        <div class="page_x page_next" @click="pageNext">
-          <img src="../images/page.png">
         </div>
+        <div class="page_x page_next" @click="pageNext">
+          <img src="../images/pagenav.png">
+        </div>
+      </div>
+
+      <div v-else>
+        <img class="empty_bg" src="../images/empty.png">
       </div>
 
 
@@ -92,7 +104,9 @@
 
     <div class="fansinfo">
       <div class="fans_title">粉丝数据信息</div>
-      <div class="fans_top">
+
+      <span v-show="empty.length!=0">
+         <div class="fans_top">
 
         <div class="fans_left">
 
@@ -103,12 +117,12 @@
 <!--          <div class="hui">-->
             <div class="title">{{age_distributionsText}}</div>
             <div style="width:400px;height: 257px" id="agenum" class=""></div>
-<!--          </div>-->
+          <!--          </div>-->
         </div>
       </div>
       <div class="map_data">
         <div class="map_title">{{statxtnumz}}</div>
-        <div style="width: 100%;height: 800px" id="map_portrait" class="map_portrait"></div>
+        <div style="width: 800px;height: 800px" id="map_portrait" class="map_portrait"></div>
       </div>
 
       <div class="phone_x">
@@ -122,6 +136,12 @@
         </div>
 
       </div>
+      </span>
+      <span  v-show="empty.length==0">
+
+        <img class="empty_bg" src="../images/empty.png">
+      </span>
+
 
     </div>
   </div>
@@ -145,6 +165,7 @@
     data() {
 
       return {
+        empty:[],
         infolist: [
           {
             title: "粉丝数",
@@ -338,7 +359,7 @@
         statxtnumz:'',
         BrokenLine:[
           {
-            item1:[1,2,4],
+            item1:[],
             item2:[]
           },
           {
@@ -391,7 +412,19 @@
     },
 
     mounted() {
-        this.selportrait()
+
+      console.log("111111111111"),
+              function(){
+                let token = localStorage.getItem('jwt_token');
+                if(token){
+                  console.log(token)
+                  console.log('有')
+                }else{
+                  console.log(token)
+                  console.log("没有")
+                }
+              },
+        // this.selportrait()
       this.GetRequest();
       this.Init();
 
@@ -408,6 +441,11 @@
     },
     methods: {
         //年龄统计
+
+      videoGO(e){
+        window.open(e) ;
+      },
+
       ageup(){
         this.$nextTick(function() {
           let agenum = this.$echarts.init(document.getElementById('agenum'))
@@ -415,15 +453,19 @@
             let xinQu = [];
             let arr = [];
             let arrZhi = [];
-            this.age_distributions.forEach(item=>{
+            if (this.age_distributions){
+              this.age_distributions.forEach(item=>{
                 sum=sum+item.value
                 xinQu.push(item.item)
                 arr.push(item.value)
-            })
-            arr.forEach(item=>{
+              })
+              arr.forEach(item=>{
                 let num =((item/sum)*100).toFixed(2)
                 arrZhi.push(num)
-            })
+              })
+            }
+
+
             //最大值
             let max = arrZhi[0];
             //最大值下标
@@ -530,16 +572,19 @@
             let xinQu = [];
             let arr = [];
             let arrZhi = [];
+          if (this.interest_distributions){
 
-          this.interest_distributions.forEach(item=>{
+            this.interest_distributions.forEach(item=>{
               sum=sum+item.value
               xinQu.push(item.item)
               arr.push(item.value)
-          })
-            arr.forEach(item=>{
-                let num =((item/sum)*100).toFixed(2)
-                arrZhi.push(num)
             })
+            arr.forEach(item=>{
+              let num =((item/sum)*100).toFixed(2)
+              arrZhi.push(num)
+            })
+          }
+
             //最大值
             let max = arrZhi[0];
             //最大值下标
@@ -651,6 +696,7 @@
           let option = this.$echarts.init(document.getElementById('equipment'))
 
             let data=[]
+          if(this.device_distributions){
             this.device_distributions.forEach(item=>{
               /*  data.push({
                     value: [12],
@@ -662,6 +708,9 @@
                     },
                 })*/
             })
+          }
+
+
           option.setOption({
             tooltip: {},
             legend: {
@@ -700,37 +749,48 @@
       pageUp(){
         let num = this.num
         console.log(num)
-        left: 0
-        right: 1588527639000
-        cursor_list: "0,1588527639000"
-        let pams={
+
+        let data={
+          count:4,
+          cursor:num.left,
           cursor_list:num.cursor_list
         }
-        let data={
-          left:num.left,
-          right:num.right
-        }
-        pagevideo(pams,data).then(res=>{
+        console.log(data)
+        pagevideo(data).then(res=>{
+          this.num =res
+          let list =res.list
 
+          for (let i in res.list){
+            res.list[i].create_time =this.Tiemtransition(res.list[i].create_time)
+          }
+          this.videoList = list
+
+          console.log(list)
         }).catch(err=>{})
 
 
       },
       pageNext(){
         let num = this.num
-        left: 0
-        right: 1588527639000
-        cursor_list: "0,1588527639000"
-        let pams={
-          cursor_list:num.cursor_list,
-          right:num.right
-        }
-        let data={
-          left:num.left,
-          right:num.right
-        }
-        pagevideo(pams).then(res=>{
 
+        // let pams={
+        //   cursor_list:num.cursor_list,
+        //   right:num.right
+        // }
+        let data={
+          count:4,
+          cursor:num.right,
+          cursor_list:num.cursor_list
+        }
+
+        pagevideo(data).then(res=>{
+          this.num = res
+          let list =res.list
+          for (let i in res.list){
+            res.list[i].create_time =this.Tiemtransition(res.list[i].create_time)
+          }
+          this.videoList =list
+          console.log(list)
         }).catch(err=>{})
       },
       /*初始化swiper*/
@@ -753,22 +813,27 @@
         let gender_figure = this.$echarts.init(document.getElementById('gender_figure'))
           let nan=0;
           let nv=0;
-          this.gender_distributions.forEach(item=>{
+          if (this.gender_distributions){
+            this.gender_distributions.forEach(item=>{
               if(item.item=='1'){
-                  nan=item.value
+                nan=item.value
               }else if(item.item=='2'){
-                  nv=item.value
+                nv=item.value
               }
-          })
-              if(parseInt(nan)>parseInt(nv)){
-                    let sum =(nan/(nan+nv))*100
-                    this.gender_distributionsText='性别统计，男性粉丝居多，占比'+sum.toFixed(2)+'%'
-              }else if(parseInt(nv)>parseInt(nan)){
-                  let sum =(nan/(nan+nv))*100
-                  this.gender_distributionsText='性别统计，女性粉丝居多，占比'+sum.toFixed(2)+'%'
-              }else{
-                  this.gender_distributionsText='性别统计，男性粉丝与女粉丝不相上下，同样占比50%'
-              }
+            })
+            if(parseInt(nan)>parseInt(nv)){
+              let sum =(nan/(nan+nv))*100
+              this.gender_distributionsText='性别统计，男性粉丝居多，占比'+sum.toFixed(2)+'%'
+            }else if(parseInt(nv)>parseInt(nan)){
+              let sum =(nan/(nan+nv))*100
+              this.gender_distributionsText='性别统计，女性粉丝居多，占比'+sum.toFixed(2)+'%'
+            }else{
+              this.gender_distributionsText='性别统计，男性粉丝与女粉丝不相上下，同样占比50%'
+            }
+
+          }
+
+
 
         gender_figure.setOption({
 
@@ -816,21 +881,25 @@
 
         // let jwt_token = localStorage.getItem('jwt_token');
 
-        var url = window.location.search; //获取url中"?"符后的字串
-        var theRequest = new Object();
-        if (url.indexOf("?") != -1) {
-          var str = url.substr(1);
-          let strs = str.split("&");
-          for(var i = 0; i < strs.length; i ++) {
-            theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
-          }
-        }
-        localStorage.setItem('jwt_token',theRequest.jwt_token);
-        console.log(localStorage.getItem('jwt_token'))
-
+        // var url = window.location.search; //获取url中"?"符后的字串
+        // var theRequest = new Object();
+        // if (url.indexOf("?") != -1) {
+        //   var str = url.substr(1);
+        //   let strs = str.split("&");
+        //   for(var i = 0; i < strs.length; i ++) {
+        //     theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+        //   }
+        // }
+        // localStorage.setItem('jwt_token',theRequest.jwt_token);
+        // console.log(localStorage.getItem('jwt_token'))
+      this.selportrait()
       },
       selportrait(){
         portrait().then(res=>{
+
+          var empty = Object.keys(res);
+          this.empty = empty
+
 
           // let list = res.geographical_distributions
           // console.log(list)
@@ -1045,7 +1114,7 @@
             visualMap: {
               orient: 'horizontal',
               left: 30,
-              bottom:150,
+              bottom:50,
               min: 0,
               max: 1000,
               showLabel: !0,
@@ -1273,8 +1342,6 @@
           title='点赞数'
         }else if(index==3){
           title='分享数'
-        }else if(index==4){
-          title='评论数'
         }else{
           title='总作品数'
         }

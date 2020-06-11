@@ -2,14 +2,15 @@
   <div class="body">
     <div class="content">
       <div class="title">我的收藏</div>
-      <div class="works">
+        <span v-if="videoList.length!=0">
+            <div class="works">
         <div class="cont" v-for="item in videoList">
-          <div class="img">
+          <div class="img" @click="videoGO(item.favorite_video__video_url)">
             <div class="cancel">
               <div class="imga">
 <!--                <img :src="">-->
               </div>
-              <div class="tip" @click="cancel(item.favorite_video__aweme_id)">取消收藏</div>
+              <div class="tip" v-on:click.stop="cancel(item.favorite_video__aweme_id)" >取消收藏</div>
             </div>
             <img :src="item.favorite_video__video_img_url" />
           </div>
@@ -44,12 +45,18 @@
         <div class="img"></div>
         <div class="txt">查看更多</div>
       </div>
+        </span>
+
+        <span v-else>
+            <img class="empty_bg" src="../images/empty.png">
+        </span>
+
     </div>
   </div>
 </template>
 
 <script>
-  import { collget,collPost,collDelete  } from "../apis/info";
+    import {collget, collPost, collDelete, deleteadrs} from "../apis/info";
 
   // import { Tiemtransition  } from "../utils/datatime";
 export default {
@@ -79,39 +86,70 @@ export default {
       /*跳转传参*/
       nvago(e){
           // http://localhost:63342/dqcy/video.html?vid=6830678056311475456
-          window.location.href = " http://localhost:63342/dqcy/video.html?vid="+e;
+          //http://test.shadou.cn/video.html?vid=6826919575330901260
+          window.location.href = " http://test.shadou.cn/video.html?vid="+e;
       },
 
+      videoGO(e){
+          window.open(e) ;
+      },
     cancel(e){
       // let id =11
-      this.deleteid.favorite_video__aweme_id= e
-      console.log(e)
+        /*删除*/
 
-      collDelete(this.deleteid).then(res=>{
-        console.log(res)
-          for (let i in this.pages){
-              var listx =[]
-              collget(this.pages[i]).then(res=>{
-                  console.log("---------------------")
-                  console.log(res.res)
-                  for (let i in res.res){
-                      listx.push(res.res[i])
-                  }
-                  console.log("---------------------")
+            console.log(e)
+            this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning',
+                center: false
+            }).then(() => {
+                this.deleteid.favorite_video__aweme_id= e
+                console.log(e)
 
-                  // this.videoList.forEach(item=>{
-                  //  item.
-                  // })
-                  // Tiemtransition
+                collDelete(this.deleteid).then(res=>{
+                    console.log(res)
+                    for (let i in this.pages){
+                        var listx =[]
+                        collget(this.pages[i]).then(res=>{
+                            console.log("---------------------")
+                            console.log(res.res)
+                            for (let i in res.res){
+                                listx.push(res.res[i])
+                            }
+                            console.log("---------------------")
 
-              }).catch(err=>{
+                            // this.videoList.forEach(item=>{
+                            //  item.
+                            // })
+                            // Tiemtransition
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
 
-              })
-          }
-          this.videoList = listx
-      }).catch(err=>{
-          console.log(err)
-      })
+                        }).catch(err=>{
+
+                        })
+                    }
+                    this.videoList = listx
+                }).catch(err=>{
+                    console.log(err)
+                })
+
+            }).catch(() => {
+                // this.$message({
+                //   type: 'info',
+                //   message: '已取消删除'
+                // });
+            });
+
+
+
+
+
+
+
         console.log("取消")
 
 
@@ -143,6 +181,10 @@ export default {
               }
 
           }else {
+              this.$message({
+                  type: 'warning',
+                  message: '没有更多数据了!'
+              });
               let paging={
                   start:that.paging.start-8,
                   end:that.paging.end-8

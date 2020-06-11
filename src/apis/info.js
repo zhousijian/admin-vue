@@ -9,7 +9,7 @@ export function getInfo() {
 
 export function getPost(params) {
   return $request({
-    url: "/info/post",
+    url: "/info/post/",
     method: "post",
     params // 请求参数
   });
@@ -27,7 +27,7 @@ export function getuserdata() {
 /*获取用户*/
 export function uservideo(params) {
   return $request({
-    url: "/v1/user/video_list", // 请求路径(path)
+    url: "/v1/user/video_list/", // 请求路径(path)
     method: "get" ,// 请求方式
     params,
   });
@@ -35,7 +35,7 @@ export function uservideo(params) {
 /*翻页使用*/
 export function pagevideo(params) {
   return $request({
-    url: "/v1/user/video_list", // 请求路径(path)
+    url: "/v1/user/video_list/", // 请求路径(path)
     method: "get" ,// 请求方式
     params,
   });
@@ -170,7 +170,7 @@ export function seladdress() {
 /*修改收货地址*/
 export function amendaddress(params={},data) {
   return $request({
-    url: `/v1/user/address/${params.address_id}`, // 请求路径(path)
+    url: `/v1/user/address/${params.address_id}/`, // 请求路径(path)
     method: "put" ,// 请求方式
     data,
   });
@@ -180,7 +180,7 @@ export function amendaddress(params={},data) {
 /*删除地址*/
 export function deleteadrs(params={}) {
   return $request({
-    url: `/v1/user/address/${params.id}`, // 请求路径(path)
+    url: `/v1/user/address/${params.id}/`, // 请求路径(path)
     method: "DELETE" ,// 请求方式
   });
 }
@@ -230,7 +230,7 @@ export function selorder() {
 /*订单详情接口*/
 export function orderinfo(params) {
   return $request({
-    url: `/v1/order/${params.id}`, // 请求路径(path)
+    url: `/v1/order/${params.id}/`, // 请求路径(path)
     method: "get" ,// 请求方式
   });
 }

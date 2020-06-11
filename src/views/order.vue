@@ -19,7 +19,7 @@
         <div class="tit_c">订单总额</div>
         <div class="tit_d">操作</div>
       </div>
-
+      <span v-if="orderList.length!=0">
       <div class="order_cont" v-for="(item,index) in orderList">
         <div class="cont_tit">
           <div class="tiem_number">
@@ -31,7 +31,7 @@
           </div>
           <div class="time_tip">
             <!--&&item.status_name=='提交订单'-->
-            <div class="txt" v-if="item.timeg!=false&&item.status_name=='提交订单'" >支付剩余时间：  {{item.timeg}}</div>
+            <div class="txt" v-if="item.timeg!=0&&item.status==1" >支付剩余时间：  {{item.timeg}}</div>
           </div>
         </div>
         <div class="cont_layout">
@@ -78,10 +78,19 @@
             <div class="state">
               <span v-for=" itemx in item.button_list">
               <div class="state_buy" @click="navgo(item.id)"  v-if="itemx == '立即支付'">立即支付</div>
-              <div class="state_failure" v-if="itemx == '订单已失效'">订单已失效</div>
-              <div class="state_confirm" v-if="itemx == '支付成功'" @click="cancelbtn(item.id,5)">确认交付</div>
-              <div class="state_succeed" v-if="itemx == '交付成功'">交付成功</div>
+
+
+<!--              <div class="state_succeed" v-if="itemx == '交付成功'">交付成功</div>-->
+
+
               <div class="state_state" v-if="itemx == '取消订单'" @click="cancelbtn(item.id,6)">取消订单</div>
+
+
+                <div class="" v-if="itemx=='交易成功'">交易成功</div>
+                 <div class="state_failure" v-if="itemx == '已失效'">订单已失效</div>
+                <div class="state_confirm" v-if="itemx == '确认交付'" @click="cancelbtn(item.id,5)">确认交付</div>
+                <div class="state_info"  v-if="itemx == '审核制作'"> 审核制作</div>
+                <div class="state_info" v-if="itemx == '付款成功'">付款成功</div>
               <div class="state_info" v-if="itemx == '订单详情'" @click="navgo(item.id)">订单详情</div>
                 </span>
             </div>
@@ -99,6 +108,14 @@
             <div class="txt">收起</div>
           </div>
         </div>
+      </div>
+        </span>
+      <div v-if="orderList.length==0" class="kong_tip">
+        <div class="img_order">
+          <img src="../images/orderx.png">
+        </div>
+尚未有订单信息，快去首页逛逛吧
+
       </div>
     </div>
   </div>
@@ -125,40 +142,14 @@ export default {
 
     /*处理倒计时*/
     add0(m){return m<10?'0'+m:m },
-    setTimex(e){
-      let that =this
 
-      setInterval(function () {
-        let list = e
-        for (let i in list){
-          let datatime = new Date().getTime()
-          let clatime = list[i].expiration_time*1000-datatime
-          if (clatime>0){
-            if (clatime<=1000){
-              // that.selectorder()
-            }
-            var hours = parseInt((clatime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = parseInt((clatime % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = parseInt((clatime % (1000 * 60)) / 1000);
-            let timeg=that.add0(hours)+':'+that.add0(minutes)+':'+that.add0(seconds)
-            list[i].timeg = timeg
-          }else {
-            list[i].expiration_time = 0
-          }
-        }
-        that.orderList=list
-        console.log(list)
-      },5000)
-
-
-    },
 
   //  查询订单
     selectorder(){
       let that =this
       selorder().then(res=>{
         let orderList = res.data
-        console.log(orderList)
+        // console.log(orderList)
         for (let i in orderList){
           orderList[i]['timeg']=0
 
@@ -207,6 +198,49 @@ export default {
       })
     },
 
+    setTimex(e){
+      let that =this
+
+      setInterval(function () {
+        let list =e
+        // let result = list.some(item => {
+        //   let datatime = new Date().getTime()
+        //   let clatime = item.expiration_time*1000-datatime
+        //   if (clatime <= 0) {
+        //     return true
+        //   } else {
+        //     return false
+        //   }
+        // })
+        // if (result) {
+        //   that.selectorder()
+        // }
+        let arr1 =[]
+        let arr2 = []
+        for (let i in list){
+          console.log(list[i])
+          let datatime = new Date().getTime()
+          let clatime = list[i].expiration_time*1000-datatime
+          if (clatime>0){
+            // if (clatime<=1000){
+            //
+            //   // that.selectorder()
+            // }
+            var hours = parseInt((clatime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = parseInt((clatime % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = parseInt((clatime % (1000 * 60)) / 1000);
+            let timeg=that.add0(hours)+':'+that.add0(minutes)+':'+that.add0(seconds)
+            list[i].timeg = timeg
+            console.log(list[i].timeg)
+          }else {
+            list[i].timeg =0
+
+          }
+        }
+        // that.orderList=list
+      },1000)
+    },
+
     moreall(e){
       console.log(e)
       console.log(this.orderList[e].more)
@@ -217,6 +251,9 @@ export default {
   },
   mounted() {
       this.selectorder()
+    if(this.orderList.length!=0){
+
+    }
   }
 };
 </script>

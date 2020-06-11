@@ -10,7 +10,7 @@
             <div class="txt">单价</div>
             <div class="txt">操作</div>
           </div>
-          <div class="cont_list" v-for="item in awemeData">
+          <div v-if="awemeData.length!=0" class="cont_list" v-for="item in awemeData">
             <div class="cont_line">
               <div class="cont_s">
                 <div class="pitch_on" @click="addList(item.aweme_id)"  v-if="!item.judge"> </div>
@@ -42,7 +42,7 @@
               <div class="delete">
 
 <!--                  @click="delcar(item.aweme_id)"-->
-                  <el-button type="text" @click="open(item.aweme_id)"><div class="del_txt" >删除</div></el-button>
+                 <div class="del_txt"  @click="open(item.aweme_id)">删除</div>
 
                 <div class="ch_img" v-if="!item.has_favorite"@click="addrcoll(item.aweme_id)">
                   <img src="../images/wshouc.png">
@@ -55,16 +55,31 @@
               </div>
             </div>
           </div>
+            <div v-if="awemeData.length==0"  class="kong_tip">
 
-          <div class="buy_tip">
-            <div class="pitch_on"  v-if="agreetx&&!judgebtn"></div>
-              <div class="pitch_c" v-if="!agreetx"></div>
-            <span v-if="judgebtn">*当前勾选视频拍摄服务不满10件，无法订购该服务，详情请阅读</span>
-            <span class="my_txt" v-if="!judgebtn">*我已阅读</span>
+                <div class="imgcar">
+                    <img src="../images/car.png">
+                </div>
+                您的购物车什么都没有，快去<span class="bint" @click="navgoto"> 首页 </span>逛逛吧
+            </div>
+          <div class="buy_tip" v-if="awemeData.length!=0">
+              <span v-if="!judgebtn&&statistics.length!=0" style="display: flex">
+
+                  <div class="pitch_on" @click="popup()"  v-if="agreetx&&!judgebtn"></div>
+              <div class="pitch_c" @click="changep" v-if="!agreetx"></div>
+                  <span class="my_txt" >*我已阅读</span>
             <span class="spanx" @click="popup()">《视频拍摄服务》</span>
+              </span>
+            <span v-if="statistics.length!=0&&judgebtn">
+                 <span >*当前勾选视频拍摄服务不满10件，无法订购该服务，详情请阅读</span>
+                 <span class="spanx" @click="popup()">《视频拍摄服务》</span>
+            </span>
+
+
           </div>
         </div>
       </div>
+
       <div class="bottom_cont">
         <div class="cont">
           <div class="pitch_c" @click="alladd()" v-if="allsel"></div>
@@ -80,21 +95,19 @@
             <div class="number"><span>￥</span>{{money}}</div>
           </div>
 
-          <div class="btn" v-if="popc&&statistics.length!=0" @click="passList()">结算</div>
+          <div class="btn" v-if="popc&&statistics.length!=0&&taga" @click="passList()">结算</div>
             <div class="btn_col"  v-else>结算</div>
         </div>
       </div>
 
          <el-dialog title="视频拍摄服务须知" :visible.sync="poptip">
-             <div class="pop_cont">
-             <div class="explain" style="overflow:auto;">
-                                您对 G5 Entertainment AB 网站 www.g5e.com（“网站”）以及 G5 和/或 G5 的任何分支机构或子公司（G5 Entertainment AB 及其子公司和分支机构在此统称为“G5”）通过本网站或第三方提供商授权给客户的任何和所有游戏和/或应用程序（“游戏”）的访问和使用应遵守以下条款和条件（“条款和条件”）、任何第三方提供商提供的任何协议的所有条款和条件以及所有适用法律。此外，当您注册访问和使用 G5 Friends 和服务（如：聊天室、游戏中聊天消息收发、公告板等）（统称“服务”）时，我们要求您明确接受这些条款和条件和隐私政策（其条款通过引用纳入本文）。如果您不同意接受这些条款和条件或隐私政策的约束，则我们不允许您注册访问或使用服务，您也不得使用或访问服务。一旦访问和浏览本网站，即表示您毫无限制或条件地接受这些条款和条件，并承认您与 G5 之间的任何其他协议均作废并失去效力或有效性：
-1. 我们维护本网站、所有游戏、服务以及本网站、服务和任何游戏中包含的所有资料，旨在为您提供个人娱乐和信息。在您遵守这些条款和条件的前提下，G5 谨此向您授予有限的、非独占的、不可转让的、不可转授许可的权利，以便您仅为了您的个人而非商业目的访问、查看、下载和使用本网站、服务和游戏。为了清楚起见且在不限制或放弃这些条款和条件的其他章节中规定的任何条款或条件的前提下，您承认并同意，如果 G5 自行确定您的使用违反了任何适用法律和/或以任何其他形式违背了这些条款和条件，则 G5 有权立即阻止您对本网站、任何服务、任何游戏及与这些关联提供的项目的访问。您访问和使用本网站、服务和/或任何游戏的权利是由我们酌情提供的，我们可以随时以任何理由暂停或终止您的帐户。不得以任何方式对本网站或任何游戏中的资料进行拷贝、复制、重新发布、上传、发布、传输或分发，但您可以仅为了您的个人而非商业的家庭使用目的在任何一台计算机上下载该资料的一份副本，条件是，您不得侵犯所有版权和其他专有声明。对该资料进行修改或将其用于任何其他目的均会侵犯 G5 以及创建该资料的艺术家的版权和其他专有权。在没有获得 G5 的明确书面许可的前提下，您不得出于公共或商业目的分发、修改、传输或使用包括任何和所有图形和/或声音文件在内的本网站、服务或任何游戏的内容。您承认并同意，对于从第三方提供商（如：Apple、Google/Android、Amazon 等）下载的任何游戏，即使 G5 不是您与此种第三方之间的任何许可协议的一方，G5 仍应是此种第三方的最终用户许可协议的一个第三方受益人。您还同意，作为任何此种最终用户许可协议的第三方受益人，G5 拥有针对您执行此种许可的权利。
-2. 除非另有说明，本网站中包含的和/或在本网站上和/或通过服务推广或提供的所有游戏、文本、数据、图形文件、声音文件和其他资料均受版权保护，均为 G5 和/或 G5 的供应商的财产。除非这些条款和条件中有规定，否则严禁使用此种资料。
-3. 本网站、服务和/或任何游戏中包含的所有商号、商标和图像以及个人履历信息均为 G5 的财产或均应在 G5 许可的前提下使用。除非这些条款和条件中明确允许，否则禁止您使用这些资料。针对这些资料的任何未经授权的使用都可能侵犯 G5 和/或第三方的版权、商标和其他专有权，以及违反隐私和宣传法律和其他法规及法令。未经所有者明确书面同意，本协议、游戏和/或本网站中包含的任何内容均不得被视为默示或以其他方式授予使用任何商标或其他专有信息的任何许可或权利。
-4. 本网站或服务提供的或者作为游戏组成部分的任何和所有虚拟商品和/或虚拟货币，只能在您使用和享受本网站和/或任何相关游戏的过程中仅供您个人娱乐和使用。其使用受这些适用条款和条件的约束。所有虚拟商品和虚拟货币都是授权给您使用的，都不是您的个人财产，其中的任何所有者权益也并未转让给您。G5 可以随时经或不经通知自行决定变更虚拟商品和虚拟货币收取的价格、提供的数量以及提供的种类。G5 还可以随时经或不经通知自行决定变更或停用任何和所有此种虚拟商品和虚拟货币。任何虚拟商品或虚拟货币无法从 G5 或任何其他第三方换取金钱、服务、商品或其他具有货币价值的货物或物品。
-5. G5 将采取合理努力在本网站、服务和游戏中提供准确而最新的信息，但 G5 不对信息准确性做出任何保证或声明。对于本网站、服务和/或任何游戏内容的任何错误或疏忽，G5 概不承担任何义务或责任。
-6. 当您在 G5 和/或本网站、服务和/或任何游戏注册时，您明确同意接收来自 G5 的任何通知、公告、协议、披露、报告、文档、有关新产品或新服务的通信或者其他记录或信函。您同意接收我们通过电子邮件这种电子形式向您发送的通知。
+             <div class="pop_cont"style="overflow:auto;">
+             <div class="explain" >
+                                购买须知: <br><br><br>
+
+1. 以上剧本均为正规拍摄手法, 不包括航拍、水下拍摄等特殊拍摄服务，如有特殊拍摄需求费用另行商议。<br><br>
+
+ 2. 如拍摄过程中涉及到差旅费用，由甲方告知乙方具体差旅费用，乙方进行支付或是安排差旅。<br><br>
              </div>
 
                  <div class="pit_tip">
@@ -103,9 +116,10 @@
                      <span>*我已阅读《视频拍摄服务须知》</span>
                  </div>
 
-                 <div v-if="agreetx" class="pop_conf pop_confirma">确定</div>
-                 <div @click="subbtn" v-if="!agreetx" class="pop_conf pop_confirmb">确定</div>
+
              </div>
+              <div v-if="agreetx" class="pop_conf pop_confirma">确定</div>
+                 <div @click="subbtn" v-if="!agreetx" class="pop_conf pop_confirmb">确定</div>
          </el-dialog>
     </span>
     <span v-if="!orinfoa">
@@ -136,7 +150,7 @@
           <div class="addr_info">
             <div class="email">收件邮箱：{{siteList.email}}</div>
             <div class="phone">联系方式：{{siteList.phone}}</div>
-            <div class="addr_z">拍摄地址：{{siteList.region__name}} {{siteList.city__name}} {{siteList.county__name}}{{siteList.address}}</div>
+            <div class="addr_z">拍摄地址：{{siteList.addresstxt}}</div>
           </div>
         </div>
         <div class="addr_bg">
@@ -192,20 +206,25 @@
             <el-table-column
                     prop="name"
                     label="收件人"
+                    width="100"
                    >
             </el-table-column>
             <el-table-column
                     prop="phone"
                     label="联系电话"
+                    width="130"
                    >
             </el-table-column>
             <el-table-column
                     prop="email"
-                    label="收件邮箱">
+                    label="收件邮箱"
+            width="210">
             </el-table-column>
             <el-table-column
                     prop="address"
-                    label="拍摄地址">
+                    label="拍摄地址"
+                    width="210"
+            >
             </el-table-column>
             <el-table-column
                     prop="handle"
@@ -213,10 +232,10 @@
                     align="center"
             >
               <template slot-scope="scope">
-                <div
+                <div class="mini"
                         size="mini"
                         @click="handleadd( scope.row)">编辑</div>
-                <div
+                <div        class="mini"
                         size="mini"
                         type="danger"
                         @click="handleDelete(scope.row)">删除</div>
@@ -227,20 +246,23 @@
                     label="选择地址"
                     align="center">
               <template slot-scope="scope">
-                <div @click="choice(scope.row)" class="confirm_btn">选择</div>
+                <div  @click="choice(scope.row)" class="confirm_btn">选择</div>
               </template>
             </el-table-column>
           </el-table>
         </div>
           </el-dialog>
 
-        <div class="bottom_cont">
-        <div class="cont">
-<!--          <div class="pitch_c" @click="alladd()" v-if="allsel"></div>-->
-<!--          <div class="pitch_on" @click="alladd()" v-if="!allsel"></div>-->
-<!--          <div class="txt">全选</div>-->
+         <div class="zhifu_log">
+            <div class="txt">支付方式</div>
+            <div class="img">
+                 <img src="../images/zhifubaoi.png">
+            </div>
+
         </div>
-        <div class="cont">
+        <div class="bottom_cont bottom_bg">
+            <div class="cont"></div>
+            <div class="cont">
           <div class="cont_txt">
             共选择<span>{{scriptx}}</span>创意剧本，<span>{{hoot}}</span>视频拍摄
           </div>
@@ -249,8 +271,11 @@
             <div class="number"><span>￥</span>{{money}}</div>
           </div>
 
-          <div class="btn" @click="suborder()">支付</div>
+          <div class="btn" v-if="siteList" @click="suborder()">支付</div>
+            <div v-else class="btn_x">支付</div>
         </div>
+
+
       </div>
 
 <!--        <div class="buy_tip">-->
@@ -274,10 +299,11 @@
               <el-form-item label="收件邮箱" prop="email">
                 <el-input v-model="ruleForm.email"></el-input>
               </el-form-item>
-              <el-form-item label="拍摄地址" prop="value" >
-                <div class="man_bg">
+                <div>
+                <el-form-item label="拍摄地址" prop="valueAdress" >
+                  <div class="man_bg">
 
-                    <el-select style="width: 30%"  v-model="value"  @change="stair"  placeholder="请选择">
+                    <el-select style="width: 33%"  v-model="ruleForm.valueAdress"  @change="stair"  placeholder="请选择">
                       <el-option
                               v-for="(item,key) in onlist"
                               :key="item.id"
@@ -286,8 +312,7 @@
                       </el-option>
                     </el-select>
 
-
-                    <el-select style="width: 30%"   @change="secondary" v-model="valueb" placeholder="请选择">
+                    <el-select stle="width: 33%"   @change="secondary" v-model="valueb" placeholder="请选择">
                       <el-option
                               v-for="(item,key) in secondarylist"
                               :key="item.id"
@@ -297,7 +322,7 @@
                     </el-select>
 
 
-                    <el-select style="width: 30%"  @change="threeLevel" v-model="valuec" placeholder="请选择">
+                    <el-select style="width: 33%"  @change="threeLevel" v-model="valuec" placeholder="请选择">
                       <el-option
                               v-for="(item,key) in threelist"
                               :key="item.id"
@@ -306,8 +331,9 @@
                       </el-option>
                     </el-select>
 
-                </div>
-              </el-form-item>
+                  </div>
+                </el-form-item>
+              </div>
               <el-form-item label="详细地址" prop="address">
                 <el-input v-model="ruleForm.address"></el-input>
               </el-form-item>
@@ -341,7 +367,7 @@
         seladdress,
         present,
         deleteadrs,
-        amendaddress
+        amendaddress, paymoney
     } from "../apis/info";
     var checkPhone = (rule, value, callback) => {
         const phoneReg = /^1[3|4|5|6|7|8][0-9]{9}$/
@@ -392,8 +418,12 @@ export default {
             email: '',
             default: false,
             address: '',
+            valueAdress:''
         },
+        siteList:[],
+        orderid:'',
         addoramend:true,
+        taga:false,
         rules: {
             name: [
                 { required: true, message: '请输入收货人地址', trigger: 'blur' },
@@ -431,6 +461,9 @@ export default {
 
       navgo(){
           this.$router.push({path:'/management'})
+      },
+      navgoto(){
+          self.location.href = 'http://test.shadou.cn/index.html' //(e,'self')
       },
     open(e) {
       this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
@@ -475,8 +508,15 @@ export default {
       subbtn(){
         console.log(this.poptip)
           this.poptip = !this.poptip
-          this.popc = !this.popc
+              //
+          this.popc = true
       },
+      changep(){
+          this.popc = false
+          this.agreetx =!this.agreetx
+          this.judgebtn = this.judgebtn
+      },
+
     addrcoll(e){
       let date={
         aweme_id:e
@@ -490,6 +530,7 @@ export default {
       })
     },
     delcoll(e){
+          console.log("点击的取消")
       let date={
         favorite_video__aweme_id:e
       }
@@ -549,16 +590,36 @@ export default {
         }
       }
       this.orderpass = arr
-    },
+        console.log(this.siteList)
 
-      suborder(){
         let data ={
             address_id:this.siteList.id,
             aweme_id_list:this.statistics
         }
+        console.log(data)
+        present(data).then(res=>{
 
-          present(data).then(res=>{
+            console.log(res)
+            this.orderid = res.id
 
+        }).catch(err=>{
+
+        })
+
+
+    },
+
+      suborder(){
+          let data = {
+              order_id:this.orderid
+          }
+
+        console.log(data)
+          paymoney(data).then(res=>{
+              let link = res.pay_url
+              console.log(link)
+              // this.$router.push({path: link})
+              window.open(link)
           }).catch(err=>{
 
           })
@@ -627,6 +688,12 @@ export default {
       }
       that.scriptx= that.statistics.length
       that.hoot= hoot
+        if(hoot==0||hoot>=10){
+            this.taga = true
+        } else {
+            this.taga= false
+        }
+
         if (that.statistics.length!=0&&hoot<10&&hoot!=0){
             this.judgebtn=true
         }else if(that.statistics.length==0&&hoot<10&&hoot!=0){
@@ -667,8 +734,11 @@ export default {
           //     }that.awemeData.aweme_data[i]['judge']=true
           //   }
           // }
-
         }
+
+
+        // if(this.){}
+
         that.awemeData = arr
         that.dispose()
         that.total()
@@ -677,26 +747,32 @@ export default {
       })
     },
 
+      /*处理选项问题*/
+
+
     /*查询地址*/
     adrchaxun(){
       seladdress().then(res=>{
+          console.log(res)
           console.log("____________++++++++++++++++++")
           if (res.res.length==0){
               this.siteList= []
               this.alladdres =[]
           }else {
               let siteList = res.res
-              this.alladdres =res.res
+              let alladdres =res.res
+              for (let i in siteList){
+                  siteList[i]['addresstxt']=  siteList[i].region__name +' '+ siteList[i].city__name+" "+ siteList[i].county__name+" "+ siteList[i].address
+              }
+              this.alladdres=  alladdres
               // siteList= JSON.parse(JSON.stringify(siteList).replace(/default/g,"defaultx"));
               for (let i in siteList){
                   if (siteList[i].default){
                       this.siteList = siteList[i]
-                  }else {
-                      this.siteList=[]
                   }
               }
           }
-
+            console.log(this.siteList)
             console.log("没到这儿1")
         console.log(this.alladdres)
           console.log("____________++++++++++++++++++")
@@ -740,7 +816,7 @@ export default {
       /*编辑*/
       handleadd(e){
           console.log(e)
-          this.addrList = false
+          console.log("===========到账===============")
           this.addrsspop= true
           this.addoramend = false
           this.ruleForm= {
@@ -750,7 +826,10 @@ export default {
               email: e.email,
               default: e.defaultx,
               address: e.address,
+              valuea:e.region__name,
+              valueAdress:e.region__name
           }
+          this.value = this.ruleForm.region__name
           // for (){
           //
           // }
@@ -781,6 +860,50 @@ export default {
           // }
 
       },
+     /* handleadd(e){
+          console.log(e)
+          this.addrsspop= true
+          this.addoramend = false
+          this.ruleForm= {
+              name: e.name,
+              county__id: e.county__id,
+              phone: e.phone,
+              email: e.email,
+              default: e.defaultx,
+              address: e.address,
+              valuea:e.region__name
+          }
+          this.value = this.ruleForm.region__name
+          // for (){
+          //
+          // }
+          this.stair(e.region__id)
+          this.secondary(e.city__id)
+
+          this.value =e.region__name
+          this.valueb= e.city__name
+          this.valuec= e.county__name
+          this.nunid = e.id
+          this.numberid=e.county__id
+
+          // changeswi(e)
+          // {
+          //   let params = {
+          //     address_id: e.id
+          //   }
+          //   let data = {
+          //     name: e.name,
+          //     county__id: e.county__id,
+          //     phone: e.phone,
+          //     email: e.email,
+          //     default: e.defaultx,
+          //     address: e.address,
+          //   }
+          //   console.log(data)
+          //   this.amendadrs(params, data)
+          // }
+
+      },*/
       reserveamend(formName){
           this.$refs[formName].validate((valid) => {
               if (valid) {

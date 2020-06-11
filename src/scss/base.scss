@@ -1,7 +1,50 @@
 .el-dialog {
   width: 900px;
 }
+//.has-gutter{
+//  background-color: red;
+//}
+th.is-leaf{
+  background-color: #EFEFEF;
+}
+.tac{
+  margin-bottom: 0;
+}
+//.el-input-group__append{
+//  background-color: #147FF9;
+//  color: #ffffff;
+//}
+.el-button{
+  position: relative;
+}
+.kong_tip{
+  font-size: 1rem;
+  text-align: center;
+  margin: 20px 0;
+  color: #999999;
+  .imgcar{
+    width: 161px;
+    height: 142px;
+    margin: auto;
+    margin-bottom: 15px;
+  }
+  .bint{
+    color: #147ff9;
+    cursor: pointer;
+  }
+  .img_order{
+    width:127px ;
+    height: 123px;
 
+    margin: auto;
+    margin-bottom: 15px;
+  }
+}
+.empty_bg{
+  width: 149px;
+  height: 127px;
+  margin: auto;
+}
 .content{
   box-sizing: border-box;
   margin-top: 0 !important;

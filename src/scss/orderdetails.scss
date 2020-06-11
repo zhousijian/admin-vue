@@ -78,6 +78,10 @@
         align-items: center;
         color: #666666;
         margin-bottom: 8px;
+        .name_left{
+          width: 84px;
+        }
+
         span{
           font-size: 1rem;
           color: #333333;
@@ -203,7 +207,15 @@
         padding: 12px 0;
         text-align: center;
         margin-left: 30px;
+        cursor: pointer;
       }
     }
   }
+}
+
+.settime{
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  color: #999999;
+  margin-left: 19px;
 }

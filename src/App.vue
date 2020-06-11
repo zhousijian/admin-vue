@@ -33,6 +33,9 @@
     font-size: 14px;
     background-color: #EFEFEF;
   }
+  body{
+      margin: 0;
+  }
   .html_con{
     display: flex;
     max-width: 1200px;

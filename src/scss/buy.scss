@@ -3,6 +3,7 @@
   width: 800px !important;
 }
 .pitch_c{
+  cursor: pointer;
   box-sizing: border-box;
   width: 16px;
   height: 16px;
@@ -29,6 +30,7 @@
 
 }
 .pitch_x{
+  cursor: pointer;
   box-sizing: border-box;
   width: 16px;
   height: 16px;
@@ -63,6 +65,7 @@
   margin-bottom: 21px;
 }
 .pitch_on{
+  cursor: pointer;
   width: 16px;
   height: 16px;
   //margin-right: 27px;
@@ -154,6 +157,7 @@
           .replace_txt{
             font-size: 1rem;
             color: #147FF9;
+            cursor: pointer;
           }
           .replace_img{
             width: 6px;
@@ -348,11 +352,13 @@
           .del_txt{
             font-size: 1rem;
             color: #333333;
+            cursor: pointer;
           }
           .del_txt:hover{
             color: #147ff9;
           }
           .ch_img{
+            cursor: pointer;
             width: 18px;
             height: 19px;
             //background-color: #ccc;
@@ -380,7 +386,9 @@
         color: #222222;
       }
       .spanx{
+        cursor: pointer;
         color: #147FF9;
+        //cursor: default;
       }
     }
   }
@@ -441,9 +449,24 @@
       line-height: 40px;
       font-size: 1.1428rem;
       font-width: 500;
+      cursor: pointer;
+      margin-left:23px;
+    }
+    .btn_x{
+      width: 120px;
+      height: 40px;
+      border-radius: 4px;
+      background-color: #EFEFEF;
+      text-align: center;
+      color: #999999;
+      line-height: 40px;
+      font-size: 1.1428rem;
+      font-width: 500;
+      cursor: pointer;
       margin-left:23px;
     }
     .btn_col{
+      cursor: pointer;
       width: 120px;
       height: 40px;
       border-radius: 4px;
@@ -456,12 +479,18 @@
       margin-left:23px;
     }
   }
+  .bg {
+    display: flex;
+  }
+}
+.bottom_bg{
+  padding: 0;
 }
 
 .pop_cont{
-
+  height: 447px;
   .explain{
-    height: 447px;
+    min-height: 400px;
   }
 }
 .pit_tip{
@@ -472,7 +501,7 @@
 .pop_conf{
   width: 80px;
   height: 30px;
-
+  cursor: default;
   text-align: center;
   line-height: 30px;
   border-radius: 4px;
@@ -496,4 +525,25 @@
 
 .el-dialog {
   width: 900px !important;
+}
+
+
+.zhifu_log{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #ffffff;
+  margin-top: 40px;
+  .txt{
+    font-size: 1rem;
+    color: #333333;
+    margin-right: 14px;
+  }
+
+}
+.mini{
+  cursor: pointer;
+}
+.confirm_btn{
+  cursor: pointer;
 }

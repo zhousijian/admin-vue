@@ -13,6 +13,13 @@ Vue.config.productionTip = false;
 
 import './scss/base.scss';
 
+
+// typeof (localStorage.getItem('jwt_token')) ==undefined
+// if (localStorage.getItem('jwt_token')){
+//   window.location.href='http://shadou.cn/'
+//   window.history.back(-1);
+// }
+
 new Vue({
   router,
   store,

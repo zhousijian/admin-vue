@@ -21,27 +21,48 @@
 
       </div>
 
-      <div class="order_tip">当前订单状态:  <span>{{dataList.detail_status_name}}</span></div>
+      <div class="order_tip">当前订单状态:  <span>{{dataList.detail_status_name}}</span>
+      <span class="settime" v-if="dataList.padn&&dataList.status==1">剩余支付时间{{dataList.timeg}}</span>
+      </div>
       <div class="order_info">
         <div class="order_tip">订单信息</div>
         <div class="user_info">
-          <div class="info name">收货人：<span>{{dataList.delivery_name}}</span></div>
-          <div class="info phone">联系电话：<span>{{dataList.delivery_phone}}</span></div>
-          <div class="info addrs">拍摄地址：<span>{{dataList.delivery_address}}</span></div>
+          <div class="info name"><span class="name_left">收货人：</span><span>{{dataList.delivery_name}}</span></div>
+          <div class="info phone"><span class="name_left">联系电话：</span><span>{{dataList.delivery_phone}}</span></div>
+          <div class="info addrs"><span class="name_left">拍摄地址：</span><span>{{dataList.delivery_address}}</span></div>
           <div class="info email">
-            收件邮箱：<span>{{dataList.delivery_email}}</span>
+            <span class="name_left">收件邮箱：</span><span>{{dataList.delivery_email}}</span>
           </div>
-          <div class="info number">订单号：<span>{{dataList.order_number}}</span></div>
-          <div class="info time">下单时间：<span>{{dataList.create_time}}</span></div>
+          <div class="info number">
+            <span class="name_left">订单号：</span>
+            <span>{{dataList.order_number}}</span>
+          </div>
+          <div class="info time">
+            <span class="name_left">下单时间：</span>
+            <span>{{dataList.create_time}}</span></div>
           <div class="info money">
-            支付金额：<span class="color_i">￥{{dataList.amount}}</span><span>({{dataList.orderpay__pay_method}})</span>
+            <span class="name_left">支付金额：</span>
+            <span class="color_i">￥{{dataList.amount}}</span><span>({{dataList.orderpay__pay_method}})</span>
           </div>
-          <div class="info cancel_time" v-if="dataList.sent_time">
-            发送时间：<span>{{dataList.sent_time}}</span>
+          <div class="info cancel_time" v-if="dataList.status==2">
+            <span class="name_left">支付时间：</span><span>{{dataList.pay_time}}</span>
           </div>
-          <div class="info confirm" v-if="dataList.confirm_time">
-            确认交付：<span>{{dataList.confirm_time}}</span>
+          <div class="info confirm" v-if="dataList.status==3">
+            <span class="name_left">审核时间：</span><span>{{dataList.audit_time}}</span>
           </div>
+          <div class="info confirm" v-if="dataList.status==4">
+            <span class="name_left">发送时间：</span><span>{{dataList.sent_time}}</span>
+          </div>
+          <div class="info confirm" v-if="dataList.status==5">
+            <span class="name_left">完成时间：</span><span>{{dataList.confirm_time}}</span>
+          </div>
+          <div class="info confirm" v-if="dataList.status==6">
+            <span class="name_left">取消时间：</span><span>{{dataList.cancel_time}}</span>
+          </div>
+<!--          <div class="info confirm" v-if="dataList.status==0">-->
+<!--            <span class="name_left">失效时间：</span><span>{{dataList.cancel_time}}</span>-->
+<!--          </div>-->
+
         </div>
       </div>
 
@@ -76,12 +97,12 @@
         <div class="buy_type"></div>
         <div class="statistics">
           <div class="tip">
-            共选择<span>3</span>创意剧本，<span>10</span>视频拍摄
+            共选择<span>{{dataList.quantity}}</span>创意剧本，<span>{{numx}}</span>视频拍摄
           </div>
           <div class="money">
             总价：<span><span>￥</span>{{dataList.amount}}</span>
           </div>
-          <div class="btn_buy" @click="paymoneyx" v-if="dataList.status_name=='提交订单'">支付</div>
+          <div class="btn_buy" @click="paymoneyx" v-if="dataList.status==1">支付</div>
         </div>
       </div>
     </div>
@@ -97,7 +118,8 @@ export default {
   name: "orderdetails",
   data(){
     return{
-      dataList:[]
+      dataList:[],
+      numx:0
     }
 
   },
@@ -105,11 +127,8 @@ export default {
     console.log(this.$route.params)
     // let id = this.$route.params.id
     var id = sessionStorage.getItem('id');
-    console.log(id)
-    console.log(typeof (id))
-    this.select(id)
-    console.log(id)
 
+    this.select(id)
 
     // this.myIndex = this.$route.params.msgKey
   },
@@ -119,27 +138,24 @@ export default {
     setTimex(e){
       let that =this
 
-      setInterval(function () {
+      let time =setInterval(function () {
         let list = e
-        for (let i in list){
-          let datatime = new Date().getTime()
-          let clatime = list[i].expiration_time*1000-datatime
-          if (clatime>0){
-            if (clatime<=1000){
-              that.selectorder()
-            }
-            var hours = parseInt((clatime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = parseInt((clatime % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = parseInt((clatime % (1000 * 60)) / 1000);
-            let timeg=that.add0(hours)+':'+that.add0(minutes)+':'+that.add0(seconds)
-            list[i].timeg = timeg
-          }else {
-            list[i].expiration_time = 0
-          }
-          // that.clickBtn(list[i])
+        let datatime = new Date().getTime()
+        let clatime = list.expiration_time*1000-datatime
+        if(clatime<=0){
+          list.padn=false
+          clearInterval (time)
+        }else {
 
         }
-        that.orderList=list
+        var hours = parseInt((clatime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = parseInt((clatime % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = parseInt((clatime % (1000 * 60)) / 1000);
+        let timeg=that.add0(hours)+':'+that.add0(minutes)+':'+that.add0(seconds)
+        list.timeg = timeg
+        console.log(list)
+
+        that.dataList=list
         // console.log(that.orderList)
         // console.log(that.orderList)
         // console.log("============================")
@@ -153,8 +169,10 @@ export default {
     paymoneyx(){
 
         let data = {
-          order_id:this.$route.params.id
+          order_id:sessionStorage.getItem('id')
         }
+
+        console.log(data)
 
 
         paymoney(data).then(res=>{
@@ -173,8 +191,19 @@ export default {
       }
       orderinfo(data).then(res=>{
         console.log(res)
+        res['padn']=true
+        res['timeg']=''
         this.dataList = res
+          let numx = 0
+        for (let i in res.order_good_values){
+          if (res.order_good_values[i].server_type==1){
+            numx = numx+1
+          }
 
+        }
+        this.numx= numx
+
+        this.setTimex(res)
       }).catch(err=>{
 
       })

@@ -1,7 +1,7 @@
 module.exports = {
     lintOnSave: false,
         devServer: {
-        port: 8083
+        port: 8084
     }
 };
 // module.exports = {

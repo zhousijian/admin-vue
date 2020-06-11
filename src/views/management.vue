@@ -15,7 +15,7 @@
 
 
           <el-dialog  customClass="customWidth"   title="修改账户信息" :visible.sync="dialogFormVisible">
-            <el-form :model="form">
+            <el-form :model="form" :rules="formRules" ref="customForm">
               <el-form-item label="账户昵称" :label-width="formLabelWidth">
                 <el-input  v-model="form.nick_name" autocomplete="off"></el-input>
               </el-form-item>
@@ -29,20 +29,28 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="绑定邮箱" :label-width="formLabelWidth">
+              <el-form-item prop="email" label="绑定邮箱" :label-width="formLabelWidth">
 
                 <el-input v-model="form.email" >
-<!--                  <template slot="append" >发送验证码</template>-->
-                  <el-button type="primary" slot="append" @click="sende()" > 发送验证码</el-button>
+<!--&lt;!&ndash;                  <template slot="append" style="background-color: #000" >发送验证码</template>&ndash;&gt;-->
+<!--                  <template slot="append">-->
+<!--                    <div class="" style="position:absolute;width:100%;height:100%;leftbackground-color: red">-->
+<!--                      发送验证码-->
+<!--                    </div>-->
+<!--                  </template>-->
+                  <el-button v-if="  emailcod" style="background-color: #147FF9;color: #fff" type="primary" slot="append" @click="sende()" >发送验证码</el-button>
+                  <el-button v-else type="primary" slot="append"  > {{emailtime}}s后发送</el-button>
+
                 </el-input>
               </el-form-item>
 
               <el-form-item label="邮箱验证码" :label-width="formLabelWidth">
                 <el-input v-model="form.verify_email" autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="绑定手机" :label-width="formLabelWidth">
+              <el-form-item prop="mobile" label="绑定手机" :label-width="formLabelWidth">
                 <el-input v-model="form.mobile" autocomplete="off">
-                  <el-button type="primary" slot="append" @click="authCode()"> 发送验证码</el-button>
+                  <el-button v-if="phonecod" style="background-color: #147FF9;color: #fff" type="primary" slot="append" @click="authCode()"> 发送验证码</el-button>
+                  <el-button v-else type="primary" slot="append" > {{phonetime}}s后发送</el-button>
                 </el-input>
               </el-form-item>
               <el-form-item label="手机验证码" :label-width="formLabelWidth">
@@ -96,10 +104,11 @@
               <el-form-item label="收件邮箱" prop="email">
                 <el-input v-model="ruleForm.email"></el-input>
               </el-form-item>
-              <el-form-item label="拍摄地址" prop="value" >
-                <div class="man_bg">
+              <div>
+                <el-form-item label="拍摄地址" prop="valueAdress" >
+                  <div class="man_bg">
 
-                    <el-select style="width: 30%"  v-model="value"  @change="stair"  placeholder="请选择">
+                    <el-select style="width: 33%"  v-model="ruleForm.valueAdress"  @change="stair"  placeholder="请选择">
                       <el-option
                               v-for="(item,key) in onlist"
                               :key="item.id"
@@ -108,8 +117,7 @@
                       </el-option>
                     </el-select>
 
-
-                    <el-select style="width: 30%"   @change="secondary" v-model="valueb" placeholder="请选择">
+                    <el-select stle="width: 33%"   @change="secondary" v-model="valueb" placeholder="请选择">
                       <el-option
                               v-for="(item,key) in secondarylist"
                               :key="item.id"
@@ -119,7 +127,7 @@
                     </el-select>
 
 
-                    <el-select style="width: 30%"  @change="threeLevel" v-model="valuec" placeholder="请选择">
+                    <el-select style="width: 33%"  @change="threeLevel" v-model="valuec" placeholder="请选择">
                       <el-option
                               v-for="(item,key) in threelist"
                               :key="item.id"
@@ -128,8 +136,42 @@
                       </el-option>
                     </el-select>
 
+                  </div>
+                </el-form-item>
+              </div>
+             <!-- <el-form-item label="拍摄地址" prop="ruleForm.valueAdress" >
+                <div class="man_bg">
+
+                  <el-select style="width: 30%"  v-model="ruleForm.valueAdress"  @change="stair"  placeholder="请选择">
+                    <el-option
+                            v-for="(item,key) in onlist"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
+                    </el-option>
+                  </el-select>
+
+                  <el-select style="width: 30%"   @change="secondary" v-model="valueb" placeholder="请选择">
+                    <el-option
+                            v-for="(item,key) in secondarylist"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
+                    </el-option>
+                  </el-select>
+
+
+                  <el-select style="width: 30%"  @change="threeLevel" v-model="valuec" placeholder="请选择">
+                    <el-option
+                            v-for="(item,key) in threelist"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
+                    </el-option>
+                  </el-select>
+
                 </div>
-              </el-form-item>
+              </el-form-item>-->
               <el-form-item label="详细地址" prop="address">
                 <el-input v-model="ruleForm.address"></el-input>
               </el-form-item>
@@ -149,7 +191,10 @@
           </el-dialog>
         </div>
         <div class="user" v-if="siteList.length==0">
-          <div class="nothing">您的收货信息空空如也，快点<el-button type="text" @click="addrsspopclk"><span class="addx">添加</span></el-button>您的收货信息吧</div>
+          <div class="addr_img">
+            <img src="../images/addrs.png">
+          </div>
+          <div class="nothing">您的收货信息空空如也，快点<span @click="addrsspopclk" class="addx">添加</span>您的收货信息吧</div>
         </div>
 
 
@@ -160,20 +205,24 @@
             <el-table-column
                     prop="name"
                     label="收件人"
-                    width="180">
+                    width="100">
             </el-table-column>
             <el-table-column
                     prop="phone"
                     label="联系电话"
-                    width="180">
+                    width="130">
             </el-table-column>
             <el-table-column
                     prop="email"
-                    label="收件邮箱">
+                    label="收件邮箱"
+                    width="210"
+            >
             </el-table-column>
             <el-table-column
-                    prop="address"
-                    label="拍摄地址">
+                    prop="addresstxt"
+                    label="拍摄地址"
+                    width="210"
+            >
             </el-table-column>
             <el-table-column
                     prop="handle"
@@ -182,9 +231,11 @@
             >
               <template slot-scope="scope">
                 <div
+                        class="cursora"
                         size="mini"
                         @click="handleadd( scope.row)">编辑</div>
                 <div
+                        class="cursora"
                         size="mini"
                         type="danger"
                         @click="handleDelete(scope.row)">删除</div>
@@ -314,7 +365,6 @@ export default {
         return callback(new Error('电话号码不能为空'))
       }
       setTimeout(() => {
-
         if (!Number.isInteger(+value)) {
           callback(new Error('请输入数字值'))
         } else {
@@ -329,7 +379,13 @@ export default {
 
 
     return{
-      options: [{
+      phonecod:true,
+      emailcod:true,
+      emailtime:60,
+      phonetime:60,
+
+      options: [
+              {
         value: '选项1',
         label: '黄金糕'
       }, {
@@ -371,17 +427,11 @@ export default {
         name: '王小虎',
         address: '上海市普陀区金沙江路 1516 弄'
       }],*/
-
-      valuebx:110000,
-      valuecx:0,
-      secondarylist:[],
-      onlist:[],
-      threelist:[],
-
-
-
-
-
+    valuebx:110000,
+    valuecx:0,
+    secondarylist:[],
+    onlist:[],
+    threelist:[],
     industrylist:[],
       value1: '',
       provinceList: [], // 省份列表
@@ -393,9 +443,6 @@ export default {
       cityFlag: false, // 避免重复请求的标志
       provinceFlag: false,
       areaFlag: false,
-
-
-
       userinfo:[],
       dialogTableVisible: false,
       dialogFormVisible: false,
@@ -409,6 +456,15 @@ export default {
         verify_mobile:'',
 
       },
+      formRules: {
+        email: [
+          // { required: true, message: '必填', trigger: 'blur' },
+          { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+        ],
+        mobile: [
+          { validator: checkPhone, message: '请输入正确的号码', trigger: 'blur'}
+        ]
+      },
       ruleForm: {
         name: '',
         county__id: 0,
@@ -416,11 +472,11 @@ export default {
         email: '',
         default: false,
         address: '',
+        valueAdress:''
       },
       rules: {
         name: [
-          { required: true, message: '请输入收货人地址', trigger: 'blur' },
-
+          { required: true, message: '请输入收货人地址', trigger: 'change' },
         ],
         phone: [
           {  required: true, validator: checkPhone, trigger: 'change' }
@@ -429,7 +485,7 @@ export default {
           {  required: true, message: '请输入收货人邮箱', trigger: 'change' },
           { type: 'email', message: '请输入正确的邮箱', trigger: 'blur' }
         ],
-        county__id: [
+        valueAdress: [
           {  required: true, message: '请选择收货地址', trigger: 'change' }
         ],
         address: [
@@ -463,7 +519,9 @@ export default {
 
     addrsspopclk(){
 
+      this.resetForm()
       this.addrsspop=true
+      // this.$refs['ruleForm'].clearValidate()
       this.addoramend = true
     },
 
@@ -574,7 +632,10 @@ export default {
       seladdress().then(res=>{
         let siteList = res.res
         siteList= JSON.parse(JSON.stringify(siteList).replace(/default/g,"defaultx"));
-        console.log(siteList)
+
+        for (let i in siteList){
+          siteList[i]['addresstxt']=  siteList[i].region__name +' '+ siteList[i].city__name+" "+ siteList[i].county__name+" "+ siteList[i].address
+        }
         this.siteList = siteList
 
       }).catch(err=>{
@@ -617,29 +678,118 @@ export default {
 
     //发送手机验证码
     authCode(){
-      let data ={
-        mobile:this.form.mobile
-      }
-      console.log(this.form)
-      phoneCode(data).then(res=>{
 
-      }).catch(err=>{})
+      if(this.form.mobile){
+
+
+
+        if((/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.form.mobile))){
+
+          let data ={
+            mobile:this.form.mobile
+          }
+          let that =this
+          that.phonecod = false
+          console.log(this.form)
+          phoneCode(data).then(res=>{
+            let emailtime = 60
+            let timeem = setInterval(function () {
+              if (emailtime>0){
+                emailtime= emailtime-1
+                that.phonetime = emailtime
+              }else {
+                that.phonecod =true
+                clearInterval(timeem)
+                that.emailtime= 60
+              }
+              that.phonetime = emailtime
+
+            },1000)
+            if(res.error){
+              this.$message({
+                type: 'error',
+                message: res.error
+              });
+            }
+
+
+          }).catch(err=>{})
+        }else{
+
+
+          this.$message({
+            type: 'error',
+            message: '手机格式不正确'
+          });
+        }
+
+
+
+
+      }else {
+        this.$message({
+          type: 'error',
+          message: '请输入手机号码'
+        });
+      }
+
 
     },
 
     //邮箱发送验证码
     sende(){
-      let date = {
-        email:this.form.email
-      }
-      femail(date).then(res=>{
+      // this.$refs['customForm'].validateField('email', error => {
+      //   if (!error) {
+      //     console.log('验证成功')
+      //   }
+      // })
+      console.log(this.form.email)
+      if(this.form.email){
+        var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+        if(reg.test(this.form.email)) {
+          let date = {
+            email:this.form.email
+          }
+          let that =this
 
-      }).catch(err=>{})
+          let emailtime = this.emailtime
+
+          femail(date).then(res=>{
+            that.emailcod = false
+            let timeem = setInterval(function () {
+              if (emailtime>0){
+                emailtime= emailtime-1
+                that.emailtime = emailtime
+              }else {
+                that.emailcod =true
+                clearInterval(timeem)
+                that.emailtime= 60
+              }
+
+            },1000)
+          }).catch(err=>{})
+        }else {
+          this.$message({
+            type: 'error',
+            message: '邮箱格式不正确'
+          });
+        }
+
+      }else {
+        this.$message({
+          type: 'error',
+          message: '请输入邮箱'
+        });
+      }
+
+
 
     },
 
 
     reserveadd(formName) {
+
+      console.log(this.ruleForm)
       this.$refs[formName].validate((valid) => {
         if (valid) {
             let data = this.ruleForm
@@ -658,11 +808,17 @@ export default {
     },
     reserveamend(formName){
       this.$refs[formName].validate((valid) => {
+        console.log(this.ruleForm)
         if (valid) {
           let data = this.ruleForm
           let arrlist= JSON.parse(JSON.stringify(data).replace(/county__id/g,"county__id"));
-          console.log(arrlist)
-          arrlist.county__id = this.numberid
+
+          if (this.ruleForm.county__id!=0){
+            arrlist.county__id = this.ruleForm.county__id
+          }else {
+            arrlist.county__id = this.numberid
+          }
+
 
           let params = {
             address_id:this.nunid
@@ -683,7 +839,18 @@ export default {
 
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.ruleForm={
+        name: '',
+        county__id: 0,
+        phone: '',
+        email: '',
+        default: false,
+        address: '',
+      }
+      this.valuea=''
+      this.valueb=""
+      this.valuec =''
+      // this.$refs[formName].resetFields();
     },
     // reserveadd(formName){
     //   console.log(this.ruleForm)
@@ -703,6 +870,12 @@ export default {
     stair(value){
       console.log(value)
       this.addrval = value
+      // this.ruleForm.valuea = value
+      this.value = value
+
+
+      console.log(this.ruleForm)
+      console.log("===================")
       for (let i in this.onlist){
         if (this.onlist[i].id == value){
           this.secondarylist=this.onlist[i].children
@@ -725,6 +898,9 @@ export default {
               this.threelist=this.onlist[i].children[j].children
               this.valuec = this.threelist[0].name
               this.ruleForm.county__id =this.threelist[0].id
+              console.log(this.threelist[0].id)
+              console.log(this.threelist[0].name)
+              console.log(this.ruleForm)
             }
           }
         }
@@ -732,11 +908,14 @@ export default {
     },
 
     threeLevel(value){
+      console.log(this.threelist)
+      // this.ruleForm.county__id =this.threelist[0].id
         this.ruleForm.county__id=value
     },
 
     handleadd(e){
       console.log(e)
+      console.log("===========到账===============")
       this.addrsspop= true
       this.addoramend = false
       this.ruleForm= {
@@ -746,7 +925,10 @@ export default {
         email: e.email,
         default: e.defaultx,
         address: e.address,
+        valuea:e.region__name,
+        valueAdress:e.region__name
       }
+      this.value = this.ruleForm.region__name
       // for (){
       //
       // }
@@ -863,16 +1045,23 @@ export default {
 
       }
       .user{
-        margin-left: 316px;
+        width: 330px;
+        margin: auto;
         margin-top: 20px;
+        .addr_img{
+          width:121px ;
+          height: 137px;
+          margin: auto;
+          margin-bottom: 15px;
+        }
         .nothing{
           margin: auto;
           font-size: 1rem;
-          color: #666666;
+          color: #999999;
           .addx{
             margin: 0 3px;
-            background-color: #147FF9;
-            color: #ffffff;
+            /*background-color: #147FF9;*/
+            color: #147FF9;
             padding: 0 3px;
             border-radius: 4px;
           }

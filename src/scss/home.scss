@@ -55,7 +55,7 @@
   }
 
   .info {
-    margin-left: 70px;
+    //margin-left: 70px;
     display: flex;
     justify-content: space-between;
     flex: 1;
@@ -107,6 +107,7 @@
 
 
       .btn {
+        cursor: pointer;
         text-align: center;
         width: 100px;
         padding: 9px 0;
@@ -154,11 +155,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .cont:last-child{
+      margin-right: 0;
+    }
     .cont {
       width: 196px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      margin-right: 14px;
       .img {
         height: 320px;
         width: 100%;
@@ -226,13 +231,18 @@
 }
 
 .page_x{
-  width: 20px;
-  height: 14px;
+  width: 14px;
+  height: 20px;
 }
 
 .page_up{
-  transform:rotate(-90deg);
+  transform:rotate(180deg);
 }
 .page_next{
-  transform:rotate(90deg);
+  //transform:rotate(90deg);
+}
+.video_bgz{
+  width: 826px;
+  display: flex;
+  //margin-right: 14px;
 }

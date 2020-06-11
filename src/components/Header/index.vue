@@ -1,14 +1,14 @@
 <template>
     <div class="body">
         <div class="headr">
-            <div class="logo">
+            <div class="logo" @click="navgo('index.html')">
                 <img src="../../images/logoa.png">
             </div>
             <div class="head_cont">
-                <div class="txt" @click="navgo('http://shadou.cn/index.html')">首页</div>
-                <div class="txt" @click="navgo('http://shadou.cn/type.html')">创意分类</div>
-                <div class="txt" @click="navgo('http://shadou.cn/buy.html')">订购</div>
-                <div class="txt" @click="navgo('http://shadou.cn/case.html')">行业案例</div>
+                <div class="txt" @click="navgo('index.html')">首页</div>
+                <div class="txt" @click="navgo('type.html')">创意分类</div>
+                <div class="txt" @click="navgo('buy.html')">订购</div>
+                <div class="txt" @click="navgo('case.html')">行业案例</div>
                 <div class="user">
                     <div class="user_info" @click="mouscz">
                         <div class="avatar">
@@ -20,11 +20,11 @@
                         </div>
                     </div>
                     <div class="cont_cz" v-if="mous">
-                        <div class="info_tip" @click="navgo('buy')">
+                        <div class="info_tip" @click="navgox('buy')">
                             <div class="img img1"></div>
                             <div class="name">购物车</div>
                         </div>
-                        <div class="info_tip" @click="navgo('collection')">
+                        <div class="info_tip" @click="navgox('collection')">
                             <div class="img img2"></div>
                             <div class="name">收藏</div>
                         </div>
@@ -51,24 +51,34 @@
             }
         },
         methods:{
-            navgo(e){
-                window.location.href = e;
-            },
+            // navgo(e){
+            //     window.open(e);
+            // },
             mouscz(){
                 this.mous= !this.mous
             },
             // mouseLeave(){
             //     this.mous= true
             // }
+            navgox(e){
+                this.mous= !this.mous
+                this.$router.push({path:e})
+            },
             navgo(e){
+                var linkurl='http://shadou.cn/'
+                // var linkurl = 'http://test.shadou.cn/'
                 if(e){
                     console.log(e)
                     this.mous=false
-                    this.$router.push({path: e})
+                    self.location.href =linkurl+ e //(e,'self')
                 }else {
                     localStorage.removeItem('jwt_token')
-                    window.location.href = "http://shadou.cn/";
-                    // window.history.back(-1);
+                    // self.location.replace(" http://shadou.cn/index.html?exit="+0)
+                    self.location.replace(linkurl+"index.html?exit="+0)
+
+                        // self.open(" http://localhost:63342/dqcy/index.html?exit="+0)
+                    //self.open("http://test.shadou.cn/?exit="+0) ;
+
                 }
 
             },
@@ -107,12 +117,13 @@
               font-size: 1.1428rem;
               color: #fff;
               margin-left: 19px;
+              cursor: pointer;
           }
           .user{
               position: relative;
               /*display: flex;*/
               .user_info{
-                  cursor: default;
+                  cursor: pointer;
                   display: flex;
                   align-items: center;
                   margin-left: 26px;
@@ -125,6 +136,10 @@
                       margin-right: 8px;
                   }
                   .name{
+                      max-width: 90px;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      white-space: nowrap;
                       font-size: 1.1428rem;
                       color: #ffffff;
                   }
