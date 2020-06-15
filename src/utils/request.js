@@ -1,10 +1,11 @@
 import axios from "axios";
 
 // 请求api域名,可以写在当前模式下(.env.development)
-// let domain = 'http://devapi.shadou.cn/'
-let domain = 'http://api.shadou.cn/';
-var linkurl = 'http://shadou.cn/'
+let domain = 'http://devapi.shadou.cn/'
+// let domain = 'http://api.shadou.cn/';
+// var linkurl = 'http://shadou.cn/'
 // var linkurl = 'http://test.shadou.cn/'
+var linkurl = 'http://127.0.0.1:5500/'
 var url = window.location.search; //获取url中"?"符后的字串
 var theRequest = new Object();
 if (url.indexOf("?") != -1) {

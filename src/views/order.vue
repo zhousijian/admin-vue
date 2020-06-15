@@ -130,6 +130,7 @@ export default {
     return {
       more,
       orderList:[],
+      DSQ:null
     };
   },
   methods:{
@@ -145,11 +146,11 @@ export default {
 
 
   //  查询订单
-    selectorder(){
+    selectorder() {
       let that =this
       selorder().then(res=>{
         let orderList = res.data
-        // console.log(orderList)
+        console.log(orderList)
         for (let i in orderList){
           orderList[i]['timeg']=0
 
@@ -201,7 +202,7 @@ export default {
     setTimex(e){
       let that =this
 
-      setInterval(function () {
+      this.DSQ = setInterval(function () {
         let list =e
         // let result = list.some(item => {
         //   let datatime = new Date().getTime()
@@ -254,6 +255,10 @@ export default {
     if(this.orderList.length!=0){
 
     }
+  },
+
+  beforeDestroy(){
+    clearInterval(this.DSQ)
   }
 };
 </script>
