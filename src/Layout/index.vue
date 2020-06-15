@@ -54,16 +54,22 @@
           </el-submenu>
 
           <!-- <el-submenu index="6">
-          <template slot="title">
-            <i class="el-icon-home"></i>
-            <span>我的抖音号</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="management" :route="{name: 'management'}">个人信息</el-menu-item>
-            <el-menu-item index="home" :route="{name: 'home'}">作品列表信息</el-menu-item>
-            <el-menu-item index="home" :route="{name: 'home'}">粉丝统计分布</el-menu-item>
-          </el-menu-item-group>
-          </el-submenu>-->
+            <template slot="title">
+              <i class="el-icon-home"></i>
+              <span class="one-title">我的抖音号</span>
+            </template>
+            <el-menu-item-group class="two-floor">
+              <el-menu-item index="homemm" :route="{ name: 'homemm' }"
+                >个人信息</el-menu-item
+              >
+              <el-menu-item index="homemm" :route="{ name: 'homemm' }"
+                >作品列表信息</el-menu-item
+              >
+              <el-menu-item index="homemm" :route="{ name: 'homemm' }"
+                >粉丝统计分布</el-menu-item
+              >
+            </el-menu-item-group>
+          </el-submenu> -->
         </el-menu>
       </el-col>
       <el-col :span="18" class="flex-right">
@@ -146,7 +152,8 @@ ul.el-menu {
 /deep/.two-floor .el-menu-item {
   display: flex;
   align-items: center;
-  margin-left: 28px;
+  // margin-left: 28px;
+  text-indent: 28px;
 }
 /deep/.el-menu-item-group__title {
   padding: 0;
@@ -173,6 +180,13 @@ ul.el-menu {
 /deep/.el-submenu__title i {
   color: #333333 !important;
   font-weight: 700;
+}
+.el-menu-vertical-demo > .is-active {
+  background: linear-gradient(
+    0deg,
+    rgba(241, 252, 249, 1) 0%,
+    rgba(237, 245, 253, 1) 100%
+  );
 }
 .el-menu-vertical-demo > .is-active::after {
   content: "";
