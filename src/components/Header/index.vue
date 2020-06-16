@@ -8,7 +8,7 @@
                 <div class="txt" @click="navgo('index.html')">首页</div>
                 <div class="txt" @click="navgo('type.html')">创意分类</div>
                 <div class="txt" @click="navgo('buy.html')">订购</div>
-                <div class="txt" @click="navgo('case.html')">行业案例</div>
+                <!-- <div class="txt" @click="navgo('case.html')">行业案例</div> -->
                 <div class="user">
                     <div class="user_info" @click="mouscz">
                         <div class="avatar">
@@ -65,8 +65,9 @@
                 this.$router.push({path:e})
             },
             navgo(e){
-               var linkurl = "http://127.0.0.1:5500/";
+            //    var linkurl = "http://127.0.0.1:5500/";
                 // var linkurl = 'http://test.shadou.cn/'
+                var linkurl = 'http://shadou.cn/'
                 if(e){
                     console.log(e)
                     this.mous=false
