@@ -39,6 +39,11 @@ const routes = [
         path: "/management",
         name: "management",
         component: () => import("../views/management.vue")
+      },
+      {
+        path: "/videoEdit",
+        name: "videoEdit",
+        component: () => import("../views/videoEdit.vue")
       }
     ]
   }

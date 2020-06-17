@@ -53,23 +53,23 @@
             </el-menu-item-group>
           </el-submenu>
 
-          <!-- <el-submenu index="6">
+          <el-submenu index="6" class="position-6">
             <template slot="title">
               <i class="el-icon-home"></i>
-              <span class="one-title">我的抖音号</span>
+              <span class="one-title">视频管理</span>
             </template>
             <el-menu-item-group class="two-floor">
-              <el-menu-item index="homemm" :route="{ name: 'homemm' }"
-                >个人信息</el-menu-item
+              <el-menu-item index="videoEdit" :route="{ name: 'videoEdit' }"
+                >视频标签修改</el-menu-item
               >
-              <el-menu-item index="homemm" :route="{ name: 'homemm' }"
+              <!-- <el-menu-item index="homemm" :route="{ name: 'homemm' }"
                 >作品列表信息</el-menu-item
               >
               <el-menu-item index="homemm" :route="{ name: 'homemm' }"
                 >粉丝统计分布</el-menu-item
-              >
+              > -->
             </el-menu-item-group>
-          </el-submenu> -->
+          </el-submenu>
         </el-menu>
       </el-col>
       <el-col :span="18" class="flex-right">
@@ -201,7 +201,8 @@ ul.el-menu {
     rgba(20, 127, 249, 1) 100%
   );
 }
-.position-5 {
+.position-5,
+.position-6 {
   position: relative;
 }
 </style>
