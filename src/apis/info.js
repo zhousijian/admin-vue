@@ -23,56 +23,51 @@ export function getuserdata() {
   });
 }
 
-
 /*获取用户*/
 export function uservideo(params) {
   return $request({
     url: "/v1/user/video_list/", // 请求路径(path)
-    method: "get" ,// 请求方式
-    params,
+    method: "get", // 请求方式
+    params
   });
 }
 /*翻页使用*/
 export function pagevideo(params) {
   return $request({
     url: "/v1/user/video_list/", // 请求路径(path)
-    method: "get" ,// 请求方式
-    params,
+    method: "get", // 请求方式
+    params
   });
 }
-
-
-
 
 /*获取用户*/
 export function portrait() {
   return $request({
     url: "/v1/user/douyin_fans_data/", // 请求路径(path)
-    method: "get" ,// 请求方式
-
+    method: "get" // 请求方式
   });
 }
 /*我的收藏*/
 export function collget(params) {
   return $request({
     url: "/v1/user/favorite_video/", // 请求路径(path)
-    method: "get" ,// 请求方式
-    params,
+    method: "get", // 请求方式
+    params
   });
 }
 /*添加视频收藏*/
 export function collPost(data) {
   return $request({
     url: "/v1/user/favorite_video/", // 请求路径(path)
-    method: "POST" ,// 请求方式
-    data,
+    method: "POST", // 请求方式
+    data
   });
 }
 
 export function collDelete(data) {
   return $request({
     url: "/v1/user/favorite_video/", // 请求路径(path)
-    method: "DELETE" ,// 请求方式
+    method: "DELETE", // 请求方式
     data
   });
 }
@@ -90,8 +85,7 @@ export function collDelete(data) {
 export function goocar() {
   return $request({
     url: "/v1/shop_car/car/", // 请求路径(path)
-    method: "get" ,// 请求方式
-
+    method: "get" // 请求方式
   });
 }
 
@@ -99,7 +93,7 @@ export function goocar() {
 export function selvideo(data) {
   return $request({
     url: "/v1/shop_car/car/", // 请求路径(path)
-    method: "put" ,// 请求方式
+    method: "put", // 请求方式
     data
   });
 }
@@ -108,17 +102,16 @@ export function selvideo(data) {
 export function carDelete(data) {
   return $request({
     url: "/v1/shop_car/car/", // 请求路径(path)
-    method: "DELETE" ,// 请求方式
+    method: "DELETE", // 请求方式
     data
   });
 }
-
 
 /*用户平台信息*/
 export function userinfo() {
   return $request({
     url: "/v1/user/user_info/", // 请求路径(path)
-    method: "get" ,// 请求方式
+    method: "get" // 请求方式
   });
 }
 
@@ -126,17 +119,16 @@ export function userinfo() {
 export function infoamend(data) {
   return $request({
     url: "/v1/user/user_info/", // 请求路径(path)
-    method: "put" ,// 请求方式
-    data,
+    method: "put", // 请求方式
+    data
   });
 }
-
 
 /*行业列表接口*/
 export function industry() {
   return $request({
     url: "/v1/video/industry_category/", // 请求路径(path)
-    method: "get" ,// 请求方式
+    method: "get" // 请求方式
   });
 }
 
@@ -144,7 +136,7 @@ export function industry() {
 export function femail(params) {
   return $request({
     url: "/v1/user/code_email/", // 请求路径(path)
-    method: "get" ,// 请求方式
+    method: "get", // 请求方式
     params
   });
 }
@@ -152,44 +144,41 @@ export function femail(params) {
 export function phoneCode(params) {
   return $request({
     url: "/v1/user/code_phone/", // 请求路径(path)
-    method: "get" ,// 请求方式
+    method: "get", // 请求方式
     params
   });
 }
-
 
 /*查询收货地址*/
 export function seladdress() {
   return $request({
     url: "/v1/user/address/", // 请求路径(path)
-    method: "get" ,// 请求方式
-
+    method: "get" // 请求方式
   });
 }
 
 /*修改收货地址*/
-export function amendaddress(params={},data) {
+export function amendaddress(params = {}, data) {
   return $request({
     url: `/v1/user/address/${params.address_id}/`, // 请求路径(path)
-    method: "put" ,// 请求方式
-    data,
+    method: "put", // 请求方式
+    data
   });
 }
 
-
 /*删除地址*/
-export function deleteadrs(params={}) {
+export function deleteadrs(params = {}) {
   return $request({
     url: `/v1/user/address/${params.id}/`, // 请求路径(path)
-    method: "DELETE" ,// 请求方式
+    method: "DELETE" // 请求方式
   });
 }
 
 export function Addrss(data) {
   return $request({
     url: "/v1/user/address/", // 请求路径(path)
-    method: "post" ,// 请求方式
-    data,
+    method: "post", // 请求方式
+    data
   });
 }
 
@@ -197,61 +186,113 @@ export function Addrss(data) {
 export function address(params) {
   return $request({
     url: "/v1/guest_ark/area/", // 请求路径(path)
-    method: "get" ,// 请求方式
-    params,
+    method: "get", // 请求方式
+    params
   });
 }
-
 
 //订单页
 /*提交订单*/
 export function present(data) {
   return $request({
     url: "/v1/order/", // 请求路径(path)
-    method: "post" ,// 请求方式
+    method: "post", // 请求方式
     data
   });
 }
-
-
-
-
 
 /*查询订单*/
 export function selorder() {
   return $request({
     url: "/v1/order/", // 请求路径(path)
-    method: "get" ,// 请求方式
-
+    method: "get" // 请求方式
   });
 }
-
 
 /*订单详情接口*/
 export function orderinfo(params) {
   return $request({
     url: `/v1/order/${params.id}/`, // 请求路径(path)
-    method: "get" ,// 请求方式
+    method: "get" // 请求方式
   });
 }
 
 /*取消订单*/
-export function cancelord(params,data) {
+export function cancelord(params, data) {
   return $request({
     url: `/v1/order/${params.id}/`, // 请求路径(path)
-    method: "PUT" ,// 请求方式
-    data,
+    method: "PUT", // 请求方式
+    data
   });
 }
-
 
 /*支付*/
 export function paymoney(params) {
   return $request({
-    url: '/v1/pay/order/ali/web/', // 请求路径(path)
-    method: "GET" ,// 请求方式
-    params,
+    url: "/v1/pay/order/ali/web/", // 请求路径(path)
+    method: "GET", // 请求方式
+    params
   });
 }
 
+/*获取类别标签*/
+export function getTypeLabel() {
+  return $request({
+    url: "/v1/general_section/type_label/", // 请求路径(path)
+    method: "GET" // 请求方式
+  });
+}
 
+/*添加标签*/
+export function addLabel(data) {
+  return $request({
+    url: "/v1/general_section/type_label/", // 请求路径(path)
+    method: "post", // 请求方式
+    data
+  });
+}
+
+/*修改标签*/
+export function editLabel(data) {
+  return $request({
+    url: `/v1/general_section/type_label/`, // 请求路径(path)
+    method: "PUT", // 请求方式
+    data
+  });
+}
+
+/*删除标签*/
+export function deleteLabel(data) {
+  return $request({
+    url: "/v1/general_section/type_label/", // 请求路径(path)
+    method: "DELETE", // 请求方式
+    data
+  });
+}
+
+/*添加类别*/
+export function addType(data) {
+  return $request({
+    url: "/v1/general_section/type_sort/", // 请求路径(path)
+    method: "post", // 请求方式
+    data
+  });
+}
+
+/*编辑类别*/
+export function editType(data) {
+  return $request({
+    url: `/v1/general_section/type_sort/`, // 请求路径(path)
+    method: "PUT", // 请求方式
+    data
+  });
+}
+
+/*删除类别*/
+export function deleteType(data) {
+  return $request({
+    url: "/v1/general_section/type_sort/", // 请求路径(path)
+    method: "DELETE", // 请求方式
+    data
+  });
+}
