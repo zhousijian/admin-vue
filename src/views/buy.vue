@@ -464,7 +464,8 @@ export default {
       },
       navgoto(){
           // self.location.href = 'http://test.shadou.cn/index.html' //(e,'self')
-          self.location.href = 'http://shadou.cn/index.html'
+          // self.location.href = 'http://shadou.cn/index.html'
+          self.location.href = 'http://127.0.0.1:5500/index.html'
       },
     open(e) {
       this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {

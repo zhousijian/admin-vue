@@ -88,7 +88,8 @@ export default {
           // http://localhost:63342/dqcy/video.html?vid=6830678056311475456
           //http://test.shadou.cn/video.html?vid=6826919575330901260
           // window.location.href = " http://test.shadou.cn/video.html?vid="+e;
-          window.location.href = "http://shadou.cn/video.html?vid="+e;
+          // window.location.href = "http://shadou.cn/video.html?vid="+e;
+          window.location.href = "http://127.0.0.1:5500/video.html?vid="+e;
       },
 
       videoGO(e){

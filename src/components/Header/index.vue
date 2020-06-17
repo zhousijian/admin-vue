@@ -65,9 +65,9 @@
                 this.$router.push({path:e})
             },
             navgo(e){
-            //    var linkurl = "http://127.0.0.1:5500/";
+               var linkurl = "http://127.0.0.1:5500/";
                 // var linkurl = 'http://test.shadou.cn/'
-                var linkurl = 'http://shadou.cn/'
+                // var linkurl = 'http://shadou.cn/'
                 if(e){
                     console.log(e)
                     this.mous=false
